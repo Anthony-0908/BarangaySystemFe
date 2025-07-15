@@ -8,7 +8,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  imports: [CommonModule, ButtonComponent,InputComponent,ReactiveFormsModule],
-  exports: [ButtonComponent,InputComponent]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputComponent,   // ✅ Standalone component must be imported
+    ButtonComponent   // ✅ Also standalone
+  ],
+  exports: [
+    InputComponent,   // ✅ Export it AFTER it's imported
+    ButtonComponent
+  ]
 })
 export class SharedModule {}
