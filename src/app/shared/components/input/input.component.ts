@@ -10,16 +10,23 @@ import { InputTextModule } from 'primeng/inputtext';
   styleUrls: ['./input.component.css'],
   imports: [
     CommonModule,
-    ReactiveFormsModule, // ✅ Needed for [formControl]
-    InputTextModule       // ✅ PrimeNG input module (for pInputText)
+    ReactiveFormsModule,
+    InputTextModule
   ]
 })
 export class InputComponent {
   @Input() label: string = '';
-  @Input() placeholder: string = 'value';
+  @Input() placeholder: string = '';
+  @Input() ariaLabel: string = '';
   @Input() type: string = 'text';
-  @Input() inputId: string = '';
+  @Input() inputId: string = Math.random().toString(36).substr(2, 9); // Generate random ID if not provided
   @Input() formControl!: FormControl;
+  @Input() required: boolean = false;
+
+  getAriaLabel(): string {
+    if (this.label) return ''; // Don't need aria-label if visible label exists
+    return this.ariaLabel || this.placeholder || 'Input field';
+  }
 
   get showErrors(): boolean {
     return this.formControl && this.formControl.invalid && this.formControl.touched;
@@ -30,8 +37,6 @@ export class InputComponent {
     if (errors?.['required']) return 'This field is required';
     if (errors?.['minlength']) return `Minimum length is ${errors['minlength'].requiredLength}`;
     if (errors?.['maxlength']) return `Maximum length is ${errors['maxlength'].requiredLength}`;
-    if (errors?.['email']) return 'Please enter a valid email address';
     return 'Invalid input';
   }
 }
-

@@ -5,9 +5,8 @@
 
   <input
     pInputText
-    [type]="type"
+    [type]="type || 'text'"
     [id]="inputId"
-    [placeholder]="placeholder"
     [formControl]="formControl"
     [ngClass]="{
       'p-invalid': showErrors,
