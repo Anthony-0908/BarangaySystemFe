@@ -1,42 +1,51 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-
 @Component({
   selector: 'app-input',
-  standalone: true,
+  imports:[CommonModule],
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css'],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    InputTextModule
-  ]
+  styleUrls: ['./input.component.css'] // or use inline styles
 })
 export class InputComponent {
   @Input() label: string = '';
-  @Input() placeholder: string = '';
-  @Input() ariaLabel: string = '';
   @Input() type: string = 'text';
-  @Input() inputId: string = Math.random().toString(36).substr(2, 9); // Generate random ID if not provided
-  @Input() formControl!: FormControl;
-  @Input() required: boolean = false;
+  @Input() placeholder: string = '';
+  @Input() disabled: boolean = false;
+  @Input() value: string = '';
+  @Input() variant: 'filled' | 'outlined' | 'standard' = 'filled'; // example variants
+  @Input() severity: 'error' | 'success' | 'warning' | '' = '';
+  @Input() inputClass: string = '';
 
-  getAriaLabel(): string {
-    if (this.label) return ''; // Don't need aria-label if visible label exists
-    return this.ariaLabel || this.placeholder || 'Input field';
+  @Output() valueChange = new EventEmitter<string>();
+
+  onInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.valueChange.emit(input.value);
   }
 
-  get showErrors(): boolean {
-    return this.formControl && this.formControl.invalid && this.formControl.touched;
+  get severityClass(): string {
+    switch (this.severity) {
+      case 'error':
+        return 'border-red-500 text-red-600';
+      case 'success':
+        return 'border-green-500 text-green-600';
+      case 'warning':
+        return 'border-yellow-500 text-yellow-600';
+      default:
+        return '';
+    }
   }
 
-  get errorMessage(): string {
-    const errors = this.formControl.errors;
-    if (errors?.['required']) return 'This field is required';
-    if (errors?.['minlength']) return `Minimum length is ${errors['minlength'].requiredLength}`;
-    if (errors?.['maxlength']) return `Maximum length is ${errors['maxlength'].requiredLength}`;
-    return 'Invalid input';
+  get variantClass(): string {
+    switch (this.variant) {
+      case 'filled':
+        return 'bg-gray-100';
+      case 'outlined':
+        return 'border border-gray-300';
+      case 'standard':
+        return 'border-b border-gray-300';
+      default:
+        return '';
+    }
   }
 }
