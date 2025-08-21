@@ -1,0 +1,17 @@
+<div class="flex flex-col min-h-screen">
+  <!-- Navbar (fixed at top) -->
+  <app-navbar></app-navbar>
+
+  <!-- Main content area -->
+  <div class="flex flex-1">
+    <!-- Sidebar -->
+    <app-sidenavbar class="w-64 bg-gray-800 text-white"></app-sidenavbar>
+
+    <!-- Page Content -->
+    <main class="flex-1 bg-gray-100 p-6 flex justify-center items-start">
+      <div class="w-full max-w-5xl">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>
