@@ -7,18 +7,22 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputComponent } from "../shared/components/input/input.component";
+import { ButtonComponent } from "../shared/components/button/button.component";
 
 @Component({
   selector: 'app-login',
    standalone: true,
   imports: [
-    CommonModule,           // For *ngIf, *ngFor directives
-    ReactiveFormsModule,    // For [formGroup], formControlName
-    InputTextModule,        // For pInputText
-    PasswordModule,         // For p-password
-    ButtonModule,           // For p-button
-    CheckboxModule,         // For p-checkbox
-  ],
+    CommonModule,
+    ReactiveFormsModule, // For [formGroup], formControlName
+    InputTextModule, // For pInputText
+    PasswordModule, // For p-password
+    ButtonModule, // For p-button
+    CheckboxModule,
+    InputComponent,
+    ButtonComponent
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
