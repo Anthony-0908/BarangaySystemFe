@@ -1,6 +1,41 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100-px-4">
-  <div class="bg-white p-6sm:p-8 rounded-2xl shadow-lg w-full max-w-sm sm:max-w-md space-y-6">
-   
-  </div>
+<div class="flex items-center justify-center min-h-screen bg-gray-100 ">
+  <h2>Login</h2>
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
 
+      <app-input 
+    [label]="'Email'"
+    [variant]="'filled'"
+    [type]="'email'"
+    placeholder="Enter email"
+    >
+    </app-input>
+
+    <app-input
+    [label]="'Password'"
+    [variant]="'filled'"
+    [type]="'password'"
+    placeholder="Enter Password"
+    >
+
+    </app-input>
+
+  <div class="mt-4">
+    <app-button
+      [label]="'Submit Form'"
+      [type]="'submit'"
+      [color]="'primary'"
+      [icon]="'pi pi-check'" 
+      [loading]="false"
+      [disabled]="false"
+      [fullWidth]="true"
+      [userPrime]="true"
+      (clicked)="onSubmit()">
+    </app-button>
+  </div>
+  
+
+    </form>
+  </div>
 </div>
+
