@@ -2,7 +2,9 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { MasterLayoutComponent } from './layouts/master-layout/master-layout.component';
 
+import { USERS_ROUTES } from './Admin/user/user.route';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { UserComponent } from './Admin/user/user.component';
 export const routes: Routes = [
   {
     path:'',
@@ -22,6 +24,15 @@ export const routes: Routes = [
     path:'', 
     component:MasterLayoutComponent,
     children:[
+      {
+        path:'users',
+        children:USERS_ROUTES,
+        title: 'Users'
+      },
+      // {
+      //   path:'users',
+      //   loadComponent:() => import('./Admin/user/user.component').then(m => m.UserComponent)
+      // },
       {
         path:'dashboard',
         loadComponent: () => import('./Admin/dashboard/dashboard.component').then(m => m.DashboardComponent),
