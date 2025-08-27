@@ -4,6 +4,6 @@ export interface User {
   email:string;
   address?:string;
   phone?:string;
-  birthdate?:string;
+  birthdate:string;
 
 }
