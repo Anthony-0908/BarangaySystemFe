@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 })
 export class InputComponent {
   @Input() label: string = '';
-  @Input() type: string = 'text';
+  @Input() type:  'text'| 'password' | 'email' | 'number' = 'text' ;
   @Input() placeholder: string = '';
   @Input() disabled: boolean = false;
   @Input() value: string = '';
@@ -18,34 +18,32 @@ export class InputComponent {
 
   @Output() valueChange = new EventEmitter<string>();
 
+
+  // Variant styles 
+  private variantClass: Record<string, string> =
+  {
+    filled: 'bg-gray-100 focus:ring fcous:ring-blue-300',
+    outlined: 'border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200',
+    standard: 'border-b border-gray-300 focus:border-blue-500',
+  }
+
+  // Serverity styles 
+  private severityClass: Record<string, string> = { 
+    error: 'border-red-500 text-red-600 focus:ring-red-200',
+    success: 'border-green-500 text-green-600 focus:ring-green-200',
+    warning: 'border-yellow-500 text-yellow-600 focus:ring-yellow-200'
+  }
+
+   get classes(): string {
+    const base = 'w-full px-3 py-2 rounded-md transition focus:outline-none';
+    const variantClass = this.variantClass[this.variant] || '';
+    const severityClass = this.severityClass[this.severity] || '';
+    return `${base} ${variantClass} ${severityClass} ${this.inputClass}`;
+  }
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.valueChange.emit(input.value);
   }
 
-  get severityClass(): string {
-    switch (this.severity) {
-      case 'error':
-        return 'border-red-500 text-red-600';
-      case 'success':
-        return 'border-green-500 text-green-600';
-      case 'warning':
-        return 'border-yellow-500 text-yellow-600';
-      default:
-        return '';
-    }
-  }
-
-  get variantClass(): string {
-    switch (this.variant) {
-      case 'filled':
-        return 'bg-gray-100';
-      case 'outlined':
-        return 'border border-gray-300';
-      case 'standard':
-        return 'border-b border-gray-300';
-      default:
-        return '';
-    }
-  }
+  
 }
