@@ -1,21 +1,67 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <label>Firstname</label>
-  <input type="text">
+  <div class="flex flex-col">
+    <app-input
+      [label]="'First name'"
+      [variant]="'filled'"
+      [type]="'text'"
+      placeholder="Enter First name"
+      >
 
-  <label>Lastname</label>
-  <input type="text">
+    </app-input>
 
-  <label>Email</label>
-  <input type="email">
+     <app-input
+      [label]="'Last name'"
+      [variant]="'filled'"
+      [type]="'text'"
+      placeholder="Enter Last name"
+      >
 
-  <label>address</label>
-  <input type="text">
+    </app-input>
 
-  <label>Phone</label>
-  <input type="text">
 
-  <label>birthdate</label>
-  <input type="date">
+    <app-input
+      [label]="'Email'"
+      [variant]="'filled'"
+      [type]="'text'"
+      placeholder="Enter Email"
+      >
+
+    </app-input>
+
+        <app-input
+      [label]="'Phone number'"
+      [variant]="'filled'"
+      [type]="'text'"
+      placeholder="Enter Phone number"
+      >
+
+    </app-input>
+
+      <app-input
+      [label]="'Birthdate'"
+      [variant]="'filled'"
+      [type]="'date'"
+      placeholder="Enter Phone number"
+      >
+
+    </app-input>
+
+    <div class="mt-4">
+      <app-button
+        [label]="'Submit Form'"
+        [type]="'submit'"
+        [color]="'primary'"
+        [icon]="'pi pi-check'"
+        [loading]="false"
+        [disabled]="false"
+        [fullWidth]="true"
+        [userPrime]="true"
+        (clicked)="onSubmit()"
+        >
+
+      </app-button>
+    </div>
+  </div>
 
 
 
