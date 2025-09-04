@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 })
 export class InputComponent {
   @Input() label: string = '';
-  @Input() type:  'text'| 'password' | 'email' | 'number' = 'text' ;
+  @Input() type: 'text' | 'password' | 'email' | 'number' | 'date' = 'text';
   @Input() placeholder: string = '';
   @Input() disabled: boolean = false;
   @Input() value: string = '';
