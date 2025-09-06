@@ -3,7 +3,7 @@ import { IndexComponent } from "./index/index.component";
 import { CreateComponent } from "./create/create.component";
 export const USERS_ROUTES: Routes = [ 
   {
-    path:'index',
+    path:'',
     loadComponent:() => import("./index/index.component").then(m => m.IndexComponent),
   },
   {
