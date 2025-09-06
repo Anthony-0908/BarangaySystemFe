@@ -22,7 +22,7 @@ export const CreateUserStore = signalStore(
       addUser(user: User) {
         patchState(store, { loading: true });
 
-        userService.create(user).pipe(
+        userService.createUser(user).pipe(
           tap(() => {
             patchState(store, {
               users: [...store.users(), user],
