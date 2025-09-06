@@ -1,68 +1,70 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <div class="flex flex-col">
-    <app-input
-      [label]="'First name'"
-      [variant]="'filled'"
-      [type]="'text'"
-      placeholder="Enter First name"
-      >
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-96 p-4">
+  <!-- First Name -->
+  <app-input
+    label="First Name"
+    formControlName="firstName"
+    placeholder="Enter first name"
+  ></app-input>
+  <div *ngIf="userForm.get('firstName')?.touched && userForm.get('firstName')?.invalid" class="text-red-500 text-sm">
+    <span *ngIf="userForm.get('firstName')?.errors?.['required']">First Name is required</span>
+    <span *ngIf="userForm.get('firstName')?.errors?.['minlength']">Minimum 3 characters</span>
+  </div>
 
-    </app-input>
+  <!-- Last Name -->
+  <app-input
+    label="Last Name"
+    formControlName="lastName"
+    placeholder="Enter last name"
+  ></app-input>
+  <div *ngIf="userForm.get('lastName')?.touched && userForm.get('lastName')?.invalid" class="text-red-500 text-sm">
+    <span *ngIf="userForm.get('lastName')?.errors?.['required']">Last Name is required</span>
+    <span *ngIf="userForm.get('lastName')?.errors?.['minlength']">Minimum 3 characters</span>
+  </div>
 
-     <app-input
-      [label]="'Last name'"
-      [variant]="'filled'"
-      [type]="'text'"
-      placeholder="Enter Last name"
-      >
-
-    </app-input>
-
-
-    <app-input
-      [label]="'Email'"
-      [variant]="'filled'"
-      [type]="'text'"
-      placeholder="Enter Email"
-      >
-
-    </app-input>
-
-        <app-input
-      [label]="'Phone number'"
-      [variant]="'filled'"
-      [type]="'text'"
-      placeholder="Enter Phone number"
-      >
-
-    </app-input>
-
-      <app-input
-      [label]="'Birthdate'"
-      [variant]="'filled'"
-      [type]="'date'"
-      placeholder="Enter Phone number"
-      >
-
-    </app-input>
-
-    <div class="mt-4">
-      <app-button
-        [label]="'Submit Form'"
-        [type]="'submit'"
-        [color]="'primary'"
-        [icon]="'pi pi-check'"
-        [loading]="false"
-        [disabled]="false"
-        [fullWidth]="true"
-        [userPrime]="true"
-        (clicked)="onSubmit()"
-        >
-
-      </app-button>
-    </div>
+  <!-- Email -->
+  <app-input
+    label="Email"
+    type="email"
+    formControlName="email"
+    placeholder="Enter email"
+  ></app-input>
+  <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid" class="text-red-500 text-sm">
+    <span *ngIf="userForm.get('email')?.errors?.['required']">Email is required</span>
+    <span *ngIf="userForm.get('email')?.errors?.['email']">Enter a valid email</span>
   </div>
 
 
+  <app-input
+    label="password"
+    type="password"
+    formControlName="password"
+    placeholder="Enter password"
+  ></app-input>
+  <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid" class="text-red-500 text-sm">
+    <span *ngIf="userForm.get('password')?.errors?.['required']">Email is required</span>
+    <span *ngIf="userForm.get('password')?.errors?.['password']">Enter a valid email</span>
+  </div>
 
+
+  <!-- Phone -->
+  <app-input
+    label="Phone Number"
+    type="number"
+    formControlName="phone_no"
+    placeholder="Enter phone number"
+  ></app-input>
+
+  <!-- Birthdate -->
+  <app-input
+    label="Birthdate"
+    type="date"
+    formControlName="birthdate"
+  ></app-input>
+
+  <!-- Submit Button -->
+  <app-button
+    [disabled]="userForm.invalid"
+    label="Submit"
+    type="submit"
+  ></app-button>
 </form>
