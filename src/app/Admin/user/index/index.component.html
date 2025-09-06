@@ -1,4 +1,9 @@
-<h2 class="text-2xl font-bold mb-4">User List</h2>
+<!-- features/users/user-list.component.html -->
 
-<app-table [data]="users" [columns]="columns"></app-table>
 
+<app-data-table
+  [columns]="columns"
+  [fetchFn]="fetchUsers"
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)">
+</app-data-table>
