@@ -15,9 +15,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   // GET all users
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiurl);
-  }
+ // user.service.ts
+getUsers(params: any): Observable<{ data: User[]; total: number }> {
+  return this.http.get<{ data: User[]; total: number }>(this.apiurl, { params });
+}
+
 
   // GET one user by ID
   getUser(id: number): Observable<User> {
