@@ -12,12 +12,16 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
 
-
-
   {
     path:'login',
     loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) ,
     title: 'Login'
+  },
+
+  {
+    path:'reset-password',
+    loadComponent: () => import('./auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
+    title: 'Reset Password' 
   },
 
   {
