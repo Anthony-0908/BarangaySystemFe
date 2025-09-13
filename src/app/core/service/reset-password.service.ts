@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private http: HttpClient){}
 
-  resetpassword(user: string): Observable<any>{
-    return this.http.post<any>(`${this.apiurl}/reset-password`,user);
+  resetpassword(email: string): Observable<any>{
+    return this.http.post<any>(`${this.apiurl}/reset-password`,email);
   }
 }
