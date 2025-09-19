@@ -1,6 +1,4 @@
 import {Routes} from "@angular/router";
-import { IndexComponent } from "./index/index.component";
-import { CreateComponent } from "./create/create.component";
 export const USERS_ROUTES: Routes = [ 
   {
     path:'',
@@ -9,5 +7,9 @@ export const USERS_ROUTES: Routes = [
   {
     path:'create',
     loadComponent:() => import('./create/create.component').then(m => m.CreateComponent)
+  },
+  {
+    path:':id/edit',
+    loadComponent:() => import('./update/update.component').then(m => m.UpdateComponent)
   }
 ]     
