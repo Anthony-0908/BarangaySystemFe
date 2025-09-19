@@ -1,0 +1,15 @@
+<!-- <div *ngIf="user">
+  <h2>Editing: {{ user.first_name }} {{ user.last_name }}</h2>
+  <p>Email: {{ user.email }}</p>
+  <p>Birthdate: {{ user.birthdate }}</p>
+</div> -->
+
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-96 p-4">
+  <app-input label="First Name" formControlName="firstName"></app-input>
+  <app-input label="Last Name" formControlName="lastName"></app-input>
+  <app-input label="Email" type="email" formControlName="email"></app-input>
+  <app-input label="Birthdate" type="date" formControlName="birthdate"></app-input>
+
+  <app-button label="Update" type="submit" [disabled]="userForm.invalid"></app-button>
+</form>
