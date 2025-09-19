@@ -26,6 +26,11 @@ getUsers(params: any): Observable<{ data: User[]; total: number }> {
     return this.http.get<User>(`${this.apiurl}/${id}`);
   }
 
+   getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.apiurl}/${id}`);
+  }
+
+
   // POST create a new user
   createUser(user: Partial<User>): Observable<User> {
     return this.http.post<User>(this.apiurl, user);
