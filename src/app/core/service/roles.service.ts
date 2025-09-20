@@ -13,7 +13,7 @@ export class RolesService {
 
   constructor(private http: HttpClient){}
 
-  getRoles(params:any): Observable<{data:Role[]}>{
-    return this.http.get<{data:Role[]}>(this.apiurl,{params})
+  getRoles(params?:any): Observable<Role[]>{
+    return this.http.get<Role[]>(this.apiurl,{params})
   }
 }
