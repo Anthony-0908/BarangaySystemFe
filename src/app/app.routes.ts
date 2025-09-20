@@ -5,6 +5,7 @@ import { MasterLayoutComponent } from './layouts/master-layout/master-layout.com
 import { USERS_ROUTES } from './Admin/user/user.route';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { UserComponent } from './Admin/user/user.component';
+import { ROLES_ROUTES } from './Admin/role/role.route';
 export const routes: Routes = [
   {
     path:'',
@@ -32,6 +33,11 @@ export const routes: Routes = [
         path:'users',
         children:USERS_ROUTES,
         title: 'Users'
+      },
+      {
+        path:'roles',
+        children:ROLES_ROUTES,
+        title:'Roles',
       },
       // {
       //   path:'users',
