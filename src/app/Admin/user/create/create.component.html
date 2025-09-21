@@ -35,6 +35,19 @@
 
 
   <app-input
+    label="Password"
+    type="password"
+    formControlName="password"
+    placeholder="Enter Password"
+  ></app-input>
+  <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid" class="text-red-500 text-sm">
+    <span *ngIf="userForm.get('password')?.errors?.['required']">password is required</span>
+    <span *ngIf="userForm.get('password')?.errors?.['password']">Error </span>
+  </div>
+
+
+
+  <app-input
     label="password"
     type="password"
     formControlName="password"
