@@ -30,6 +30,7 @@ export class InputComponent implements ControlValueAccessor {
   // Angular form callbacks
   onChange = (_: any) => {};
   onTouched = () => {};
+  control: any;
 
   writeValue(value: any): void {
     this.value = value || '';
@@ -70,4 +71,23 @@ export class InputComponent implements ControlValueAccessor {
       }[this.severity ?? ''] || '';
     return `${base} ${variantClass} ${severityClass} ${this.inputClass}`;
   }
+
+ 
+get errorMessage(): string | null {
+  if (!this.control || !this.control.errors) return null;
+
+  // backend-provided error
+  if (this.control.errors['serverError']) {
+    return this.control.errors['serverError'];
+  }
+
+  // Angular validators
+  if (this.control.errors['required']) return `${this.label} is required`;
+  if (this.control.errors['minlength']) {
+    return `${this.label} must be at least ${this.control.errors['minlength'].requiredLength} characters`;
+  }
+  if (this.control.errors['email']) return 'Please enter a valid email address';
+
+  return null;
+}
 }
