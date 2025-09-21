@@ -13,4 +13,9 @@
     (input)="onInput($event)"
     [ngClass]="classes"
   />
+
+   <!-- Error -->
+  <div *ngIf="errorMessage" class="text-sm text-red-500 mt-1">
+    {{ errorMessage }}
+  </div>
 </div>
