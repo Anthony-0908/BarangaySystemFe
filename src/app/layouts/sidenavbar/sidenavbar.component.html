@@ -1,22 +1,20 @@
-<aside class="h-full p-4">
-  <ul class="space-y-3">
-    <li>
-      <a routerLink="/home"
-         class="block px-3 py-2 rounded-md hover:bg-blue-200 hover:text-blue-800 transition">
-        🏠 Home
-      </a>
-    </li>
-    <li>
-      <a routerLink="/about"
-         class="block px-3 py-2 rounded-md hover:bg-blue-200 hover:text-blue-800 transition">
-        ℹ️ About
-      </a>
-    </li>
-    <li>
-      <a routerLink="/dashboard"
-         class="block px-3 py-2 rounded-md hover:bg-blue-200 hover:text-blue-800 transition">
-        📊 Dashboard
-      </a>
-    </li>
-  </ul>
-</aside>
+<ul>
+  <li *ngFor="let item of menuItems">
+    <!-- Single menu item -->
+    <a [routerLink]="item.route" *ngIf="!item.children">
+      <i [class]="item.icon"></i> {{ item.label }}
+    </a>
+
+    <!-- Parent menu with children -->
+    <div *ngIf="item.children">
+      <i [class]="item.icon"></i> {{ item.label }}
+      <ul>
+        <li *ngFor="let child of item.children">
+          <a [routerLink]="child.route">
+            <i [class]="child.icon"></i> {{ child.label }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>
