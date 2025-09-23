@@ -26,7 +26,7 @@ export class RolesStore extends signalStore(
       patchState(store, { loading: true, error: null });
       try {
         const roles = await firstValueFrom(rolesService.getRoles(params));
-        patchState(store, { roles:roles.data, loading: false });
+        patchState(store, { roles:roles, loading: false });
         console.log('Roles:', roles); 
       } catch (err) {
         patchState(store, { error: 'Failed to load roles', loading: false });
