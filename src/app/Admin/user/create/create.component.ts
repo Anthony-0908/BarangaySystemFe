@@ -5,6 +5,7 @@ import { InputComponent } from "../../../shared/components/input/input.component
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { UserService } from '../../../core/service/user.service';
 import { CaseMapperService } from '../../../core/service/case-mapper.service';
+
 @Component({
   selector: 'app-create',
   standalone: true,
@@ -24,12 +25,10 @@ export class CreateComponent {
       birthdate: [''],
     });
   }
-
  onSubmit() {
     if (this.userForm.valid) {
       // ✅ Convert Angular form values (camelCase) → Laravel (snake_case)
       const payload = this.caseMapper.toSnakeCase(this.userForm.value);
-
       this.userService.createUser(payload).subscribe({
         next: (res) => {
           console.log('✅ User created successfully:', res);
@@ -37,7 +36,6 @@ export class CreateComponent {
         },
         error: (err) => {
           console.error('❌ Error creating user:', err);
-
           if (err.error?.errors) {
             // ✅ Convert errors snake_case → camelCase
             const errors = this.caseMapper.toCamelCase(err.error.errors);
@@ -55,13 +53,5 @@ export class CreateComponent {
       this.userForm.markAllAsTouched();
     }
   }
-
-
-    // if (this.userForm.valid) {
-    //   console.log("✅ Submitted Data:", this.userForm.value);
-    // } else {
-    //   console.log("❌ Form is invalid");
-    //   this.userForm.markAllAsTouched();
-    // }
   }
 
