@@ -1,10 +1,7 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
 import { MasterLayoutComponent } from './layouts/master-layout/master-layout.component';
 
 import { USERS_ROUTES } from './Admin/user/user.route';
-import { DashboardComponent } from './Admin/dashboard/dashboard.component';
-import { UserComponent } from './Admin/user/user.component';
 import { ROLES_ROUTES } from './Admin/role/role.route';
 export const routes: Routes = [
   {
