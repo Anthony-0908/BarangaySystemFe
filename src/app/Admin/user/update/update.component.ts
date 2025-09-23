@@ -14,10 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 
 })
 export class UpdateComponent  {
-   userForm!: FormGroup;
-  store = inject(IndexStore);
-  fb = inject(FormBuilder);
-  route = inject(ActivatedRoute);
+  protected userForm!: FormGroup;
+  private store = inject(IndexStore);
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
 
 ngOnInit() {
   const id = Number(this.route.snapshot.paramMap.get('id'));
