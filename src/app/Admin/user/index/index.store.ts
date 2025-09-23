@@ -15,7 +15,7 @@ const initialState: UserState = {
   users: [],
   loading: false,
   error: null,
-  selectedUser: null,
+  selectedUser:  null,
   total:0,
 };
 
@@ -58,21 +58,29 @@ export class IndexStore extends signalStore(
       patchState(store, { selectedUser: null });
     },
 
-    // Update user
-    updateUser: async (id: number, updatedUser: Partial<User>) => {
+
+    loadUserById: async (id: number) => {
+    patchState(store, { loading: true, error: null });
+    try {
+      const user = await firstValueFrom(userService.getUserById(id));
+      patchState(store, { selectedUser:user, loading: false });
+    } catch (err) {
+      patchState(store, { error: 'Failed to load user', loading: false });
+    }
+  },
+
+    /** Update the user */
+    updateUser: async (id: number, updated: Partial<User>) => {
       patchState(store, { loading: true, error: null });
       try {
-        const user = await userService.updateUser(id, updatedUser).toPromise();
-        if (!user) throw new Error('No user returned from API');
-
+        const user = await firstValueFrom(userService.updateUser(id, updated));
         patchState(store, {
-          users: store.users().map(u => (u.id === id ? user : u)),
+          selectedUser: user, // overwrite with latest server copy
           loading: false,
-          selectedUser: user
         });
       } catch (err) {
         patchState(store, { error: 'Failed to update user', loading: false });
       }
-    }
+    },
   }))
 ) {}
