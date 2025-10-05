@@ -1,6 +1,10 @@
 <nav class="w-full bg-blue-600 text-white p-4 flex justify-between items-center shadow-md">
   <h1 class="text-xl font-bold">My App</h1>
   <div class="flex gap-4">
-    <button class="px-3 py-1 bg-blue-500 rounded hover:bg-blue-700">Login</button>
+     <button 
+      (click)="onLogout()" 
+      class="px-3 py-1 bg-red-500 rounded hover:bg-red-700">
+      Logout
+    </button>
   </div>
 </nav>
