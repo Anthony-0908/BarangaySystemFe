@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -10,6 +10,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputComponent } from "../shared/components/input/input.component";
 import { ButtonComponent } from "../shared/components/button/button.component";
 
+import { AuthStore } from '../core/store/auth.store';
 @Component({
   selector: 'app-login',
    standalone: true,
@@ -27,36 +28,29 @@ import { ButtonComponent } from "../shared/components/button/button.component";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-   loginForm: FormGroup;
-  loading = false;
+ private fb = inject(FormBuilder);
+  private auth = inject(AuthStore);
 
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      rememberMe: [false]
-    });
-  }
+  loginForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    rememberMe: [false]
+  });
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.loading = true;
-
-      // Simulate API call
-      setTimeout(() => {
-        console.log('Login attempt:', this.loginForm.value);
-        this.loading = false;
-        // Handle successful login here
-      }, 2000);
+      const { email, password } = this.loginForm.value;
+      this.auth.login(email, password); // ✅ Call store login
     } else {
-      // Mark all fields as touched to show validation errors
-      Object.keys(this.loginForm.controls).forEach(key => {
-        this.loginForm.get(key)?.markAsTouched();
-      });
+      this.loginForm.markAllAsTouched();
     }
   }
 
-  // Getter methods for easy access to form controls
+  // Getters for template validation
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
+
+  // For binding loading & error states in template
+  get loading() { return this.auth.loading(); }
+  get error() { return this.auth.error(); }
 }
