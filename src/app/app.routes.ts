@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { MasterLayoutComponent } from './layouts/master-layout/master-layout.component';
-
+import { authGuard } from './core/guards/role.guard';
 import { USERS_ROUTES } from './Admin/user/user.route';
 import { ROLES_ROUTES } from './Admin/role/role.route';
 export const routes: Routes = [
@@ -29,6 +29,8 @@ export const routes: Routes = [
       {
         path:'users',
         children:USERS_ROUTES,
+        canActivate: [authGuard],
+        data: { roles: ['Admin'] }, // 👈 only admins can enter
         title: 'Users'
       },
       {
