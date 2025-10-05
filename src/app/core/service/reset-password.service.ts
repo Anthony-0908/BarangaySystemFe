@@ -2,7 +2,19 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable} from "rxjs";
 import { API_URL } from '../constants/api.constants';
-import { User } from '../../model/user';
+
+
+export interface LoginResponse {
+  message: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    roles: string[];
+  };
+  token: string;
+  token_type: string;
+}
 
 @Injectable({
   providedIn: 'root' // makes the service available app-wide
