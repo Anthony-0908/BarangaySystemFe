@@ -1,20 +1,51 @@
-<ul>
-  <li *ngFor="let item of menuItems">
-    <!-- Single menu item -->
-    <a [routerLink]="item.route" *ngIf="!item.children">
-      <i [class]="item.icon"></i> {{ item.label }}
-    </a>
+<nav class="w-64 min-h-screen bg-gray-900 text-gray-300 p-4">
+  <ul class="space-y-2">
+    <li *ngFor="let item of menuItems">
+      <!-- ✅ Single menu item -->
+      <a
+        *ngIf="!item.children"
+        [routerLink]="item.route"
+        routerLinkActive="bg-gray-800 text-white"
+        class="flex items-center gap-3 p-2 rounded-lg transition-all duration-200 hover:bg-gray-800 hover:text-white"
+      >
+        <i [class]="item.icon + ' text-lg'"></i>
+        <span>{{ item.label }}</span>
+      </a>
 
-    <!-- Parent menu with children -->
-    <div *ngIf="item.children">
-      <i [class]="item.icon"></i> {{ item.label }}
-      <ul>
-        <li *ngFor="let child of item.children">
-          <a [routerLink]="child.route">
-            <i [class]="child.icon"></i> {{ child.label }}
-          </a>
-        </li>
-      </ul>
-    </div>
-  </li>
-</ul>
+      <!-- ✅ Parent item (collapsible) -->
+      <div *ngIf="item.children" class="flex flex-col">
+        <div
+          (click)="toggleExpand(item)"
+          class="flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-gray-800 hover:text-white transition-all duration-200"
+        >
+          <div class="flex items-center gap-3">
+            <i [class]="item.icon + ' text-lg'"></i>
+            <span>{{ item.label }}</span>
+          </div>
+          <!-- arrow icon -->
+          <i
+            class="pi transition-transform duration-300"
+            [ngClass]="item.expanded ? 'pi-chevron-down rotate-180' : 'pi-chevron-right'"
+          ></i>
+        </div>
+
+        <!-- ✅ Collapsible children -->
+        <ul
+          class="ml-6 overflow-hidden transition-all duration-300 border-l border-gray-700 pl-3"
+          [style.maxHeight]="item.expanded ? item.children.length * 40 + 'px' : '0px'"
+        >
+          <li *ngFor="let child of item.children">
+            <a
+              [routerLink]="child.route"
+              routerLinkActive="text-white bg-gray-800"
+              class="flex items-center gap-2 text-sm p-2 rounded-md hover:bg-gray-800 hover:text-white transition-all"
+            >
+              <i [class]="child.icon + ' text-base'"></i>
+              <span>{{ child.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</nav>

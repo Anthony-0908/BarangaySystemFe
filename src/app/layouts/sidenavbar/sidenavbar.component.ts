@@ -17,4 +17,8 @@ export class SidenavbarComponent {
     // load menu items (could be filtered by role/permission later)
     this.menuItems = MENU_ITEMS;
   }
+  toggleExpand(item: MenuItem)
+  {
+    item.expanded = !item.expanded
+  }
 }
