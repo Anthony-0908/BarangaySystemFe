@@ -5,33 +5,34 @@ export interface MenuItem {
   route?: string;
   role?: string;          // role required (optional)
   permission?: string;    // permission required (optional)
-  children?: MenuItem[];  // for nested menus
+  children?: MenuItem[];  // for nested menus]
+  expanded?: boolean; // 👈 for collapsible menus
 }
 
 export const MENU_ITEMS: MenuItem[] = [
   {
     label: 'Dashboard',
-    icon: 'ri-home-4-line',   // Home icon
+    icon: 'pi pi-home',   // ✅ PrimeIcon for Home
     route: '/dashboard'
   },
   {
     label: 'Users',
-    icon: 'ri-user-3-line',   // Users icon
+    icon: 'pi pi-users',   // ✅ PrimeIcon for Users
     route: '/users',
     permission: 'view-users'
   },
   {
     label: 'Admin Panel',
-    icon: 'ri-settings-3-line',   // Settings/gear icon
+    icon: 'pi pi-cog',   // ✅ PrimeIcon for Settings
     route: '/admin',
     role: 'admin'
   },
   {
     label: 'Reports',
-    icon: 'ri-bar-chart-2-line',   // Reports/chart icon
+    icon: 'pi pi-chart-bar',   // ✅ PrimeIcon for Reports
     children: [
-      { label: 'Monthly', route: '/reports/monthly', permission: 'view-reports', icon: 'ri-calendar-event-line' },
-      { label: 'Yearly', route: '/reports/yearly', role: 'manager', icon: 'ri-calendar-2-line' }
+      { label: 'Monthly', route: '/reports/monthly', permission: 'view-reports', icon: 'pi pi-calendar' },
+      { label: 'Yearly', route: '/reports/yearly', role: 'manager', icon: 'pi pi-calendar-times' }
     ]
   }
 ];
