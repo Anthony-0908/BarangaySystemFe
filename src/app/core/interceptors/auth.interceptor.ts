@@ -1,20 +1,14 @@
 // core/interceptors/auth.interceptor.ts
+import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import {
-  HttpInterceptorFn,
-  HttpRequest,
-  HttpHandlerFn,
-} from '@angular/common/http';
 import { AuthStore } from '../store/auth.store';
 
-export const authInterceptor: HttpInterceptorFn = (
-  req: HttpRequest<any>,
-  next: HttpHandlerFn
-) => {
+export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const authStore = inject(AuthStore);
-  const token = authStore.token(); // raw token from store
+  const token = authStore.getToken() || localStorage.getItem('token');
 
-  // Only attach token for requests going to your API (Laravel backend)
+  console.log('🔍 [AuthInterceptor] Token:', token);
+
   if (token && req.url.startsWith('http://localhost:8000/api')) {
     req = req.clone({
       setHeaders: {

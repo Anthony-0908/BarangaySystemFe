@@ -72,4 +72,8 @@ export class AuthStore {
     localStorage.removeItem('roles');
     localStorage.removeItem('permissions');
   }
+
+  getToken(): string | null {
+  return this.token() || localStorage.getItem('token');
+}
 }
