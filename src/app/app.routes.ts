@@ -36,6 +36,7 @@ export const routes: Routes = [
       {
         path:'roles',
         children:ROLES_ROUTES,
+        data: {roles:['Admin']},
         title:'Roles',
       },
       // {
