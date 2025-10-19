@@ -4,6 +4,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ColumnDef, DataTableParams, DataTableResponse } from './data-table.model';
 import { InputComponent } from "../input/input.component";
+
 @Component({
   selector: 'app-data-table',
   standalone:true,
@@ -12,18 +13,14 @@ import { InputComponent } from "../input/input.component";
 })
 export class DataTableComponent<T extends {id:number | string}> implements OnInit {
 
-  // Columns definition 
   @Input() columns: ColumnDef<T>[] = [];
-
-  // Async fetch function return paginated data
-
   @Input() fetchFn!: (params:DataTableParams) => Promise<DataTableResponse<T>>;
 
-  // Events 
+
   @Output() edit = new EventEmitter<T>();
   @Output() delete = new EventEmitter<T>();
 
-  // State
+
   data:T[] = [];
   totalRecords = 0; 
   loading = true;
