@@ -52,7 +52,6 @@ export class AuthStore {
     });
   }
 
-  /** ✅ Logout */
   logout() {
     this.authService.logout().subscribe({
       next: () => this.clearAuth(),
@@ -61,7 +60,6 @@ export class AuthStore {
     });
   }
 
-  /** ✅ Clear local state + storage */
   private clearAuth() {
     this.user.set(null);
     this.token.set(null);
