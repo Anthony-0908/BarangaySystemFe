@@ -1,9 +1,16 @@
 <button
   [type]="type"
-  [disabled]="disabled"
+  [disabled]="disabled || loading"
   [ngClass]="buttonClass"
   (click)="clicked.emit()"
-  class="transition duration-150 ease-in-out"
+  class="transition duration-150 ease-in-out w-full"
 >
-  {{ label }}
+  <!-- loading spinner -->
+  <ng-container *ngIf="loading; else labelTpl">
+    <span class="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span>
+  </ng-container>
+
+  <ng-template #labelTpl>
+    {{ label }}
+  </ng-template>
 </button>
