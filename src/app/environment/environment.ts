@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8000/api' // Laravel backend
+  FrontendURL: 'http://localhost:4200', // Angular frontend
+  backendURL: 'http://localhost:8000/api' // Laravel backend
 };
