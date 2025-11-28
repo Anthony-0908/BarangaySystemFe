@@ -16,10 +16,10 @@ import { AuthStore } from '../core/store/auth.store';
    standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule, // For [formGroup], formControlName
-    InputTextModule, // For pInputText
-    PasswordModule, // For p-password
-    ButtonModule, // For p-button
+    ReactiveFormsModule, 
+    InputTextModule, 
+    PasswordModule,
+    ButtonModule, 
     CheckboxModule,
     InputComponent,
     ButtonComponent
@@ -29,15 +29,15 @@ import { AuthStore } from '../core/store/auth.store';
 })
 export class LoginComponent {
  private fb = inject(FormBuilder);
-  private auth = inject(AuthStore);
+  protected auth = inject(AuthStore);
 
-  loginForm: FormGroup = this.fb.group({
+  protected loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     rememberMe: [false]
   });
 
-  onSubmit() {
+  protected onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.auth.login(email, password); // ✅ Call store login

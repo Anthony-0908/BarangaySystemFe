@@ -29,8 +29,8 @@
       [type]="'submit'"
       [color]="'primary'"
       [icon]="'pi pi-check'" 
-      [loading]="false"
-      [disabled]="false"
+      [loading]="auth.loading()" 
+      [disabled]="loginForm.invalid || auth.loading()"
       [fullWidth]="true"
       [userPrime]="true"
       (clicked)="onSubmit()">
