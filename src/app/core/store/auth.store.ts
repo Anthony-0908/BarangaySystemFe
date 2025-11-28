@@ -4,9 +4,10 @@ import { AuthService, LoginResponse } from '../service/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStore {
+
   // Signals
   user = signal<LoginResponse['user'] | null>(
-    JSON.parse(localStorage.getItem('user') || 'null')
+  JSON.parse(localStorage.getItem('user') || 'null')
   );
   token = signal<string | null>(localStorage.getItem('token'));
   roles = signal<string[]>(JSON.parse(localStorage.getItem('roles') || '[]'));
@@ -14,9 +15,9 @@ export class AuthStore {
   loading = signal(false);
   error = signal<string | null>(null);
 
-  // Derived/computed signals
+  // Computed signals
   isLoggedIn = computed(() => !!this.token());
-  isAdmin = computed(() => this.roles().includes('Admin')); // ✅ note capital “A”
+  isAdmin = computed(() => this.roles().includes('Admin'));
 
   constructor(
     private authService: AuthService,
@@ -24,7 +25,6 @@ export class AuthStore {
     private zone: NgZone
   ) {}
 
-  /** ✅ Login */
   login(email: string, password: string) {
     this.loading.set(true);
     this.error.set(null);
@@ -32,31 +32,44 @@ export class AuthStore {
     this.authService.login(email, password).subscribe({
       next: (res) => {
         this.user.set(res.user);
-        this.token.set(res.access_token); // ✅ fixed key name
+        this.token.set(res.access_token);
         this.roles.set(res.user.roles ?? []);
         this.permissions.set(res.user.permissions ?? []);
 
-        // persist in localStorage
+        // Persist to localStorage
         localStorage.setItem('user', JSON.stringify(res.user));
         localStorage.setItem('token', res.access_token);
         localStorage.setItem('roles', JSON.stringify(res.user.roles ?? []));
-        localStorage.setItem('permissions', JSON.stringify(res.user.permissions ?? []));
+        localStorage.setItem(
+          'permissions',
+          JSON.stringify(res.user.permissions ?? [])
+        );
 
-        // ✅ Run navigation inside Angular zone
         this.zone.run(() => this.router.navigateByUrl('/users'));
       },
+
       error: (err) => {
         this.error.set(err.error?.message || 'Login failed');
       },
-      complete: () => this.loading.set(false),
+
+      complete: () => {
+        // 🚀 ALWAYS turn loading OFF
+        this.loading.set(false);
+      }
     });
   }
 
+  /** LOGOUT */
   logout() {
+    this.loading.set(true);
+
     this.authService.logout().subscribe({
       next: () => this.clearAuth(),
       error: () => this.clearAuth(),
-      complete: () => this.router.navigateByUrl('/login'),
+      complete: () => {
+        this.loading.set(false);
+        this.router.navigateByUrl('/login');
+      },
     });
   }
 
@@ -72,6 +85,6 @@ export class AuthStore {
   }
 
   getToken(): string | null {
-  return this.token() || localStorage.getItem('token');
-}
+    return this.token() || localStorage.getItem('token');
+  }
 }
