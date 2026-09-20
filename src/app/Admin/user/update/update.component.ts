@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexStore } from '../index/index.store';
-import { User } from '../../../model/user';
+import { User } from '../../user/user.model'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -26,8 +26,8 @@ ngOnInit() {
       const selectedUser = this.store.selectedUser();
       if (selectedUser) {
         this.userForm.patchValue({
-          firstName: selectedUser.first_name,
-          lastName: selectedUser.last_name,
+          firstName: selectedUser.firstName,
+          lastName: selectedUser.lastName,
           email: selectedUser.email,
           birthdate: selectedUser.birthdate,
         });
@@ -51,8 +51,8 @@ ngOnInit() {
       const formValue = this.userForm.value;
 
       this.store.updateUser(id, {
-        first_name: formValue.firstName,
-        last_name: formValue.lastName,
+        firstName: formValue.firstName,
+        lastName: formValue.lastName,
         email: formValue.email,
         password: formValue.password || undefined,
         birthdate: formValue.birthdate,

@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 
 import { API_URL } from '../../core/constants/api.constants';
 import { PaginatedResponse } from '../../core/interfaces';
-
+import { ApiResponse } from '../../core/models/api-response';
 import { UserDto } from './user.dto';
 import { User } from './user.model';
 import { UserMapper } from './user.mapper';
@@ -18,16 +18,24 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
 
-  getUsers(params: any): Observable<PaginatedResponse<User>> {
-    return this.http
-      .get<PaginatedResponse<UserDto>>(this.apiUrl, { params })
-      .pipe(
-        map(res => ({
-          ...res,
-          data: res.data.map(dto => UserMapper.fromJson(dto))
-        }))
-      );
-  }
+  getUsers(
+  params: any
+): Observable<PaginatedResponse<User>> {
+
+  return this.http
+    .get<ApiResponse<PaginatedResponse<UserDto>>>(
+      this.apiUrl,
+      { params }
+    )
+    .pipe(
+      map(res => ({
+        records: res.data.records.map(dto =>
+          UserMapper.fromJson(dto)
+        ),
+        pagination: res.data.pagination
+      }))
+    );
+}
 
   getUserById(id: number): Observable<User> {
     return this.http

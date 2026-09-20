@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { User } from '../../../model/user';
+import { User} from '../user.model'
 import { UserService } from '../../../core/service/user.service';
 import { firstValueFrom } from 'rxjs';
 
@@ -25,19 +25,42 @@ export class IndexStore extends signalStore(
   withState(initialState),
   withMethods((store, userService = inject(UserService)) => ({
 
-    /** Load all users */
-    async loadUsers(params?: any): Promise<void> {
-      patchState(store, { loading: true, error: null });
-      try {
-        const res = await firstValueFrom(userService.getUsers(params));
-        patchState(store, { users: res.data, total: res.total, loading: false });
-      } catch (err) {
-        console.error(err);
-        patchState(store, { error: 'Failed to load users', loading: false });
-      }
-    },
+   async loadUsers(params?: any): Promise<void> {
+  patchState(store, {
+    loading: true,
+    error: null
+  });
 
-    /** Load a user by ID */
+  try {
+    const res = await firstValueFrom(
+      userService.getUsers(params)
+    );
+
+    console.log('API RESPONSE:', res);
+    console.log('API DATA:', res);
+    console.log('RECORDS:', res.records);
+    console.log('PAGINATION:', res.pagination);
+
+    patchState(store, {
+      users: res.records,
+      total: res.pagination.total,
+      loading: false
+    });
+
+    console.log('STORE USERS:', store.users());
+    console.log('STORE TOTAL:', store.total());
+
+  } catch (err) {
+    console.error('LOAD USERS ERROR:');
+
+    patchState(store, {
+      error: 'Failed to load users',
+      loading: false
+    });
+  }
+},
+
+  
     async loadUserById(id: number): Promise<void> {
       patchState(store, { loading: true, error: null });
       try {

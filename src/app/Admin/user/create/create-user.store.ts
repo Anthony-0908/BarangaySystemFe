@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { UserService } from "../../../core/service/user.service";
-import { User } from "../../../model/user";
+import { User } from "../../user/user.model"
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { tap } from 'rxjs/operators';;
 export interface CreateUserState {

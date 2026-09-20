@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from '../../../shared/components/table/table.component';
 import { UserService } from '../../../core/service/user.service';
-import { User } from '../../../model/user';
+import { User } from '../user.model';
 import { IndexStore } from './index.store';
 import { ColumnDef, DataTableParams,DataTableResponse} from '../../../shared/components/data-table/data-table.model';
 import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
@@ -17,11 +17,11 @@ import { Router } from '@angular/router';
 export class IndexComponent  {
 
   private router = inject(Router);
-  store = inject(IndexStore);
+  protected store = inject(IndexStore);
 
   columns: ColumnDef<User>[] = [
-    { field: 'first_name', header: 'First Name', sortable: true, clickable: true },
-    { field: 'last_name', header: 'Last Name', sortable: true },
+    { field: 'firstName', header: 'First Name', sortable: true, clickable: true },
+    { field: 'lastName', header: 'Last Name', sortable: true },
     { field: 'email', header: 'Email', sortable: true },
   ];
 
