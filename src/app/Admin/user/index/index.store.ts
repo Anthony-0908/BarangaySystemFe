@@ -20,8 +20,9 @@ const initialState: UserState = {
   total: 0,
 };
 
-@Injectable({ providedIn: 'root' })
-export class IndexStore extends signalStore(
+
+export const IndexStore = signalStore(
+    { providedIn: 'root' },
   withState(initialState),
   withMethods((store, userService = inject(UserService)) => ({
 
@@ -36,22 +37,14 @@ export class IndexStore extends signalStore(
       userService.getUsers(params)
     );
 
-    console.log('API RESPONSE:', res);
-    console.log('API DATA:', res);
-    console.log('RECORDS:', res.records);
-    console.log('PAGINATION:', res.pagination);
-
     patchState(store, {
       users: res.records,
       total: res.pagination.total,
       loading: false
     });
 
-    console.log('STORE USERS:', store.users());
-    console.log('STORE TOTAL:', store.total());
-
   } catch (err) {
-    console.error('LOAD USERS ERROR:');
+
 
     patchState(store, {
       error: 'Failed to load users',
@@ -113,4 +106,4 @@ export class IndexStore extends signalStore(
       }
     },
   }))
-) {}
+) 
