@@ -1,6 +1,13 @@
-export interface PaginatedResponse<T> {
-  data: T[];
+export interface Pagination {
+  currentPage: number;
+  perPage: number;
   total: number;
-  page: number;
-  pageSize: number;
+  lastPage: number;
+  from: number | null;
+  to: number | null;
+}
+
+export interface PaginatedResponse<T> {
+  records: T[];
+  pagination: Pagination;
 }

@@ -1,6 +1,7 @@
-export interface Apiresponse<T> {
-  success:boolean;
-  message:string;
+export interface ApiResponse<T> {
+   status: string;
+  message: string;
   data: T;
+  errors?: unknown;
 }
 
