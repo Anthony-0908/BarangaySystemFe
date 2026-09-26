@@ -1,27 +1,14 @@
 {
   "extends": "./tsconfig.json",
-
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-
-    /* ADD THIS ↓ */
-    "baseUrl": "src",
-    "paths": {
-      "@core/*": ["app/core/*"],
-      "@shared/*": ["app/shared/*"],
-      "@features/*": ["app/features/*"],
-      "@env/*": ["environments/*"]
-    },
-
     "types": []
   },
-
-  "files": [
-    "src/main.ts"
-  ],
-
+  "files": ["src/main.ts"],
   "include": [
-    "src/**/*.d.ts",
-    "src/**/*.ts"   // ← ADD THIS because Angular 19 default does not include ts files!
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
   ]
 }

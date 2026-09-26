@@ -39,20 +39,20 @@ export const routes: Routes = [
         data: {roles:['Admin']},
         title:'Roles',
       },
-      // {
-      //   path:'users',
-      //   loadComponent:() => import('./Admin/user/user.component').then(m => m.UserComponent)
-      // },
+      {
+        path:'users',
+        loadComponent:() => import('./Admin/user/user.component').then(m => m.UserComponent)
+      },
       {
         path:'dashboard',
         loadComponent: () => import('./Admin/dashboard/dashboard.component').then(m => m.DashboardComponent),
         title: 'Dashboard'
       },
-      {
-        path:'roles',
-        loadComponent: () => import('./Admin/role/role.component').then(m => m.RoleComponent),
-        title: 'roles'
-      }
+      // {
+      //   path:'roles',
+      //   loadComponent: () => import('./Admin/role/role.component').then(m => m.RoleComponent),
+      //   title: 'roles'
+      // }
     ]
   }
   // {

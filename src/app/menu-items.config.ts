@@ -22,11 +22,33 @@ export const MENU_ITEMS: MenuItem[] = [
     permission: 'view-users'
   },
   {
+    label: 'Roles',
+    icon: 'pi pi-shield',   // ✅ PrimeIcon for Roles
+    route: '/roles',
+    role: 'Admin',
+    children:[
+      { 
+        label:'Permission',
+        icon:'pi pi-lock', // ✅ PrimeIcon for Permissions
+        route:'/roles/permissions',
+        permission:'view-permissions'
+      },
+      {
+        label:'Role',
+        icon:'pi pi-shield',
+        route:'/roles',
+      }
+
+     
+    ]
+  },
+  {
     label: 'Admin Panel',
     icon: 'pi pi-cog',   // ✅ PrimeIcon for Settings
     route: '/admin',
     role: 'admin'
   },
+
   {
     label: 'Reports',
     icon: 'pi pi-chart-bar',   // ✅ PrimeIcon for Reports
