@@ -1,3 +1,5 @@
+import { QueryParams } from "@core/helper/query-params";
+
 export interface ColumnDef <T> { 
   field: keyof T & string;
   header:string,
@@ -5,7 +7,7 @@ export interface ColumnDef <T> {
   clickable?:boolean;
 }
 
-export interface DataTableParams { 
+export interface DataTableParams extends QueryParams { 
   page:number;
   perPage:number;
   search:string;
