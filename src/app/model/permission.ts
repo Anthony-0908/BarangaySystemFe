@@ -1,11 +1,15 @@
-export interface Permission {
-  id: number;
-  name: string;
-  guard_name: string;
-  created_at: string;
-  updated_at: string;
-  pivot: {
-    role_id: number;
-    permission_id: number;
-  };
+export class Permission {
+  constructor(
+    public id: number,
+    public name: string,
+    public guard_name: string,
+    public pivot: PermissionPivot
+  ) {}
+}
+
+export class PermissionPivot {
+  constructor(
+    public role_id: number,
+    public permission_id: number
+  ) {}
 }

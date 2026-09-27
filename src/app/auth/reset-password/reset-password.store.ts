@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import {signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { AuthService } from "../../core/service/reset-password.service";
 import { tap, catchError } from 'rxjs/operators';
-import { User } from "../../model/user";
+import { User } from "app/Admin/user/user.model";
 import { EMPTY } from "rxjs";
 
 interface ResetPaswordState { 
