@@ -1,6 +1,16 @@
-<app-data-table
+<!-- <app-data-table
   [columns]="columns"
   [fetchFn]="fetchUsers"
   (edit)="onEdit($event)"
   (delete)="onDelete($event)">
-</app-data-table>
+</app-data-table> -->
+
+<app-data-table
+  [columns]="columns"
+  [data]="store.users()"
+  [totalRecords]="store.total()"
+  [loading]="store.loading()"
+  (paramsChange)="store.loadUsers($event)"
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)"
+/>

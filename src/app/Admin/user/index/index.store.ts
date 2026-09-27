@@ -2,7 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { User} from '../user.model'
 import { UserService } from '../../../core/service/user.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, pipe, switchMap, tap } from 'rxjs';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { tapResponse } from '@ngrx/operators';
+import { QueryParams } from '../../../core/helper/query-params';
 
 interface UserState {
   users: User[];
@@ -26,33 +29,39 @@ export const IndexStore = signalStore(
   withState(initialState),
   withMethods((store, userService = inject(UserService)) => ({
 
-   async loadUsers(params?: any): Promise<void> {
-  patchState(store, {
-    loading: true,
-    error: null
-  });
+     loadUsers: rxMethod<QueryParams>(
+    pipe(
+      tap(() => {
+        patchState(store, {
+          loading: true,
+          error: null,
+        });
+      }),
 
-  try {
-    const res = await firstValueFrom(
-      userService.getUsers(params)
-    );
+    switchMap((params) =>
+      userService.getUsers(params).pipe(
+        tapResponse({
+          next: (res) => {
+            patchState(store, {
+              users: res.records,
+              total: res.pagination.total,
+              loading: false,
+            });
+          },
 
-    patchState(store, {
-      users: res.records,
-      total: res.pagination.total,
-      loading: false
-    });
+          error: (err) => {
+            console.error(err);
 
-  } catch (err) {
-
-
-    patchState(store, {
-      error: 'Failed to load users',
-      loading: false
-    });
-  }
-},
-
+            patchState(store, {
+              loading: false,
+              error: 'Failed to load users',
+            });
+          },
+        })
+      )
+    )
+  )
+),
   
     async loadUserById(id: number): Promise<void> {
       patchState(store, { loading: true, error: null });
