@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, Output, EventEmitter} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // ⬅️ Import CommonModule for ngClass
 
@@ -25,6 +25,8 @@ export class InputComponent implements ControlValueAccessor {
   @Input() severity?: 'error' | 'success' | 'warning' | '' = '';
   @Input() inputClass: string = '';
 
+  @Output() valueChange = new EventEmitter<string>();
+
   value: string = '';
 
   // Angular form callbacks
@@ -49,6 +51,7 @@ export class InputComponent implements ControlValueAccessor {
     const input = event.target as HTMLInputElement;
     this.value = input.value;
     this.onChange(this.value);
+    this.valueChange.emit(this.value);
     this.onTouched();
   }
 
